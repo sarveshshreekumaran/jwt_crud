@@ -36,6 +36,7 @@ function Register({ setJwt, setForm }) {
     }).then((data) => {
       console.log(data);
       setJwt(data.jwtAccessToken);
+      localStorage.setItem("jwt", data.jwtAccessToken);
     });
   };
   return (
