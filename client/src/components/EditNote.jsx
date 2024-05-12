@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 
 function EditNote({ jwt, setJwt, editNote, setNotes, setEdit, setForm }) {
+  const api =
+    process.env.REACT_APP_BACKEND_PRODUCTION_API ||
+    process.env.REACT_APP_BACKEND_DEV_API;
   const [editNoteForm, setEditNoteForm] = useState({
     title: editNote.title,
     note: editNote.note,
@@ -26,7 +29,7 @@ function EditNote({ jwt, setJwt, editNote, setNotes, setEdit, setForm }) {
       });
       return response;
     }
-    updateNote(`http://localhost:4000/note/${editNote._id}`, editNoteForm).then(
+    updateNote(`${api}/note/${editNote._id}`, editNoteForm).then(
       async (response) => {
         if (response.ok) {
           const data = await response.json();

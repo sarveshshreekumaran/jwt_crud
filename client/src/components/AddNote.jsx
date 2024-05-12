@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 
 function AddNote({ jwt, setJwt, setNotes }) {
+  const api =
+    process.env.REACT_APP_BACKEND_PRODUCTION_API ||
+    process.env.REACT_APP_BACKEND_DEV_API;
   const [addNoteForm, setAddNoteForm] = useState({ title: "", note: "" });
   const { title, note } = addNoteForm;
   const onChange = (e) => {
@@ -23,21 +26,19 @@ function AddNote({ jwt, setJwt, setNotes }) {
       });
       return response;
     }
-    addNote("http://localhost:4000/note/", addNoteForm).then(
-      async (response) => {
-        if (response.ok) {
-          const data = await response.json();
-          console.log(data);
-          setNotes((prevState) => [...prevState, data.newNote]);
-          setAddNoteForm({ title: "", note: "" });
-        } else {
-          console.log(await response.json(), response.ok);
-          localStorage.setItem("jwt", "undefined");
-          setJwt(localStorage.getItem("jwt"));
-          //JWT refresh token, re-login logic
-        }
+    addNote(`${api}/note/`, addNoteForm).then(async (response) => {
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        setNotes((prevState) => [...prevState, data.newNote]);
+        setAddNoteForm({ title: "", note: "" });
+      } else {
+        console.log(await response.json(), response.ok);
+        localStorage.setItem("jwt", "undefined");
+        setJwt(localStorage.getItem("jwt"));
+        //JWT refresh token, re-login logic
       }
-    );
+    });
   };
 
   return (

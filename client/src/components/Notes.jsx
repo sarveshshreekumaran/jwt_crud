@@ -3,12 +3,15 @@ import AddNote from "./AddNote";
 import EditNote from "./EditNote";
 
 function Notes({ jwt, setJwt, setForm }) {
+  const api =
+    process.env.REACT_APP_BACKEND_PRODUCTION_API ||
+    process.env.REACT_APP_BACKEND_DEV_API;
   const [notes, setNotes] = useState([]);
   const [notesLoading, setNotesLoading] = useState(true);
   const [edit, setEdit] = useState(null);
   useEffect(() => {
     async function getNotes() {
-      const response = await fetch("http://localhost:4000/note", {
+      const response = await fetch(`${api}/note`, {
         method: "get",
         mode: "cors",
         headers: {
@@ -31,11 +34,11 @@ function Notes({ jwt, setJwt, setForm }) {
         setForm(false);
       }
     });
-  }, [jwt, setJwt, setForm]);
+  }, [jwt, setJwt, setForm, api]);
 
   const deleteNote = (id) => {
     async function deleteNote(id) {
-      const response = await fetch(`http://localhost:4000/note/${id}`, {
+      const response = await fetch(`${api}/note/${id}`, {
         method: "DELETE",
         mode: "cors",
         headers: {

@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 
 function Register({ setJwt, setForm }) {
+  const api =
+    process.env.REACT_APP_BACKEND_PRODUCTION_API ||
+    process.env.REACT_APP_BACKEND_DEV_API;
   const [registerForm, setRegisterForm] = useState({
     email: "",
     username: "",
@@ -28,12 +31,12 @@ function Register({ setJwt, setForm }) {
       });
       return await response.json();
     }
-    Register("http://localhost:4000/user/register", { ...registerForm }).then(
-      (data) => {
-        console.log(data);
-        setJwt(data.jwtAccessToken);
-      }
-    );
+    Register(`${api}/user/register`, {
+      ...registerForm,
+    }).then((data) => {
+      console.log(data);
+      setJwt(data.jwtAccessToken);
+    });
   };
   return (
     <>

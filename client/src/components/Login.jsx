@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 
 function Login({ setJwt, setForm }) {
+  const api =
+    process.env.REACT_APP_BACKEND_PRODUCTION_API ||
+    process.env.REACT_APP_BACKEND_DEV_API;
   const [loginForm, setLoginForm] = useState({
     email: "",
     password: "",
@@ -27,7 +30,9 @@ function Login({ setJwt, setForm }) {
       });
       return await response.json();
     }
-    login("http://localhost:4000/user/login", { ...loginForm }).then((data) => {
+    login(`${api}/user/login`, {
+      ...loginForm,
+    }).then((data) => {
       // console.log(data);
       setLoginForm({
         email: "",
