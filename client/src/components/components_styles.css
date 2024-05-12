@@ -1,0 +1,25 @@
+.login_form_input {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-bottom: 16px;
+}
+
+.login_form_submit {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.add_note {
+    margin: 8px;
+}
+
+.all_notes {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px;
+}
