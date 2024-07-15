@@ -60,6 +60,11 @@ function Notes({ jwt, setJwt, setForm }) {
       }
     });
   };
+
+  const logOut = () => {
+    localStorage.clear();
+    setJwt(undefined);
+  };
   return (
     <>
       <main
@@ -121,6 +126,12 @@ function Notes({ jwt, setJwt, setForm }) {
                 })}
             </ul>
           )}
+        </section>
+
+        <section
+          style={{ position: "absolute", top: 0, right: 0, margin: "8px" }}
+        >
+          <button onClick={() => logOut()}>Logout</button>
         </section>
       </main>
     </>
